@@ -2,6 +2,18 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "archive",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "args",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.1",
       "packageUri": "lib/",
@@ -38,6 +50,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "crypto",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3",
       "packageUri": "lib/",
@@ -56,6 +74,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.9.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
@@ -64,6 +88,12 @@
     {
       "name": "flutter_test",
       "rootUri": "file:///Users/yenkhanh/Library/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "image",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.0.8",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -90,6 +120,12 @@
       "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-4.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "sky_engine",
@@ -146,13 +182,25 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/xml-5.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "yaml",
+      "rootUri": "file:///Users/yenkhanh/Library/flutter/.pub-cache/hosted/pub.dartlang.org/yaml-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "dash_fanclub_app",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-10-05T19:20:49.188818Z",
+  "generated": "2021-10-05T22:47:29.377136Z",
   "generator": "pub",
   "generatorVersion": "2.14.3"
 }
