@@ -48,17 +48,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final List _dashUpdates = [
+    {
+      "author": "Dash the Flutter Mascot",
+      "image": "https://flutter.dev/assets/images/dash/dash-fainting.gif",
+      "content":
+          "Hey y'all, this is Dash here! I'm finally back from vacation and ready to get Fluttering again!",
+      "authorImage": "https://flutter.dev/assets/images/dash/Dash.png",
+    },
+    {
+      "author": "Khanh Nguyen",
+      "image":
+          "https://flutter.dev/assets/images/dash/dash-conference-swag.jpg",
+      "content":
+          "Y'all, I've found the Dash plushie warehouse. No one tell Shams that I'm here...",
+      "authorImage":
+          "https://yt3.ggpht.com/ytc/AKedOLSepRT0gjLvp3HSmlNpdM7GHfwmBj8Cegc1s0mWKQ=s176-c-k-c0x00ffffff-no-rj",
+    },
+    {
+      "author": "Shams Zakhour",
+      "image": "https://flutter.dev/assets/images/dash/ShamsDashJacket.png",
+      "content": "Check out my new Dash-inspired jean jacket! - Shams."
+    },
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  bool dashUpdatesAvailable = true;
+
+  Widget dashUpdates() {
+    return ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: _dashUpdates.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: _dashUpdates[index]["authorImage"] != null
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                _dashUpdates[index]["authorImage"]),
+                            backgroundColor: Colors.lightBlue,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.brown.shade800,
+                            child: const Text("SZ"),
+                          ),
+                  ),
+                  Text(
+                    _dashUpdates[index]["author"],
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const Padding(padding: EdgeInsets.all(4)),
+              Text(_dashUpdates[index]["content"]),
+              const Padding(padding: EdgeInsets.all(8)),
+              Image(image: NetworkImage(_dashUpdates[index]["image"])),
+              const Padding(padding: EdgeInsets.all(16), child: Divider()),
+            ],
+          );
+        });
   }
 
   @override
@@ -74,11 +125,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title, style: const TextStyle(color: Colors.white)),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(
-        child: ListView(padding: EdgeInsets.zero, children: [
-          const DrawerHeader(
+        child: ListView(padding: EdgeInsets.zero, children: const [
+          DrawerHeader(
             child: Text('Drawer Header'),
           )
         ]),
@@ -87,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.lightBlue,
         unselectedItemColor: Colors.blueGrey[400],
         unselectedLabelStyle: TextStyle(color: Colors.blueGrey[400]),
+        showUnselectedLabels: true,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -105,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: "Insights",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera_enhance_outlined),
+            icon: Icon(Icons.flutter_dash),
             label: "Detector",
           ),
         ],
@@ -113,31 +165,34 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'No new updates from Dash!',
-            ),
-            Padding(
-                padding: EdgeInsets.all(0),
-                child: Image(image: AssetImage('images/dash.png')))
-          ],
-        ),
+        child: dashUpdatesAvailable
+            ? dashUpdates()
+            : Column(
+                // Column is also a layout widget. It takes a list of children and
+                // arranges them vertically. By default, it sizes itself to fit its
+                // children horizontally, and tries to be as tall as its parent.
+                //
+                // Invoke "debug painting" (press "p" in the console, choose the
+                // "Toggle Debug Paint" action from the Flutter Inspector in Android
+                // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+                // to see the wireframe for each widget.
+                //
+                // Column has various properties to control how it sizes itself and
+                // how it positions its children. Here we use mainAxisAlignment to
+                // center the children vertically; the main axis here is the vertical
+                // axis because Columns are vertical (the cross axis would be
+                // horizontal).
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Text(
+                    'No new updates from Dash!',
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(0),
+                      child:
+                          Image(image: AssetImage('assets/images/dash.png'))),
+                ],
+              ),
       ),
     );
   }
