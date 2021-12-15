@@ -77,13 +77,13 @@ class DashUpdates {
 
   List addComment(int postId, String comment, String author) {
     _dashUpdates[postId]["comments"]
-        .add({author: "Khanh Nguyen", comment: comment});
+        .add({"author": author, "comment": comment});
 
     return _dashUpdates;
   }
 
   Map updateContent(Map content) {
-    // TODO: Add some content validation here
+    // Add some content validation here
 
     _dashUpdates.add(content);
 
