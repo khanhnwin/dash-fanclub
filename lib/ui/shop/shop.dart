@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../api/shop_inventory.dart';
+import './product.dart';
 
 class DashShop extends StatefulWidget {
   const DashShop({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class DashShop extends StatefulWidget {
 class _DashShopState extends State<DashShop> {
   final ShopInventory inventoryManager = ShopInventory();
   late Map<String, Product> inventory;
+  late Product selectedProduct;
 
   @override
   void initState() {
@@ -21,6 +23,10 @@ class _DashShopState extends State<DashShop> {
 
   void applyFilter() {}
 
+  openProduct(Product item) {
+    //print(item.productValues);
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> productTiles = [];
@@ -28,41 +34,49 @@ class _DashShopState extends State<DashShop> {
     inventory.forEach((String productId, Product item) {
       print(item.productValues);
       productTiles.add(
-        Card(
-          child: Column(
-            children: [
-              SizedBox(
-                width: 500,
-                height: 175,
-                child: Image(
-                  image: AssetImage(item.firstImage),
-                  fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            print(item.productValues);
+            // Push Product page on top of stack
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ProductPage(product: item)));
+          },
+          child: Card(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 500,
+                  height: 175,
+                  child: Image(
+                    image: AssetImage(item.firstImage),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                item.name,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: Text(
-                  "\$${item.price.toString()}",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary),
+                Text(
+                  item.name,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: Text(
+                    "\$${item.price.toString()}",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.secondary),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

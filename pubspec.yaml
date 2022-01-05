@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_launcher_icons: "^0.9.2"
+  carousel_slider: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,7 +65,9 @@ flutter:
   assets:
     - assets/images/dash.png
     - assets/images/shop/t-shirt.png
+    - assets/images/shop/t-shirt-back.png
     - assets/images/shop/sweater-front.png
+    - assets/images/shop/sweater-back.png
     - assets/images/shop/dash-plushie.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

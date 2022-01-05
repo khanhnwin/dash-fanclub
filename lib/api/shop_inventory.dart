@@ -6,14 +6,7 @@ class ShopInventory {
       description:
           "Keep warm and rep Dash at your next holiday party with this wonderfully cozy Dash holiday sweater.",
       price: 49,
-      sizes: {
-        "x-small": 5,
-        "small": 3,
-        "medium": 8,
-        "large": 5,
-        "extra-large": 3,
-        "extra-extra large": 3
-      },
+      sizes: {"xs": 5, "s": 3, "m": 8, "l": 5, "xl": 3, "xxl": 3},
       images: [
         "assets/images/shop/sweater-front.png",
         "assets/images/shop/sweater-back.png"
@@ -22,72 +15,24 @@ class ShopInventory {
     "1": Product(
         productId: "1",
         name: "Dash Plushie",
-        description: "",
+        description:
+            "She's fuzzy, she's nice. She'll be your rubber duck! Throw her at someone to get their attention. (Jk, don't do that.) Get your very own Dash plushie today!",
         price: 36,
         sizes: {"one-size": 98},
         images: ["assets/images/shop/dash-plushie.png"]),
     "2": Product(
       productId: "2",
       name: "Dash T-Shirt",
-      description: "",
+      description:
+          "Rock your Dash dedication for everyone to see with this soft and comfortable Dash t-shirt.",
       price: 29,
-      sizes: {
-        "x-small": 7,
-        "small": 10,
-        "medium": 12,
-        "large": 11,
-        "extra-large": 8,
-        "extra-extra large": 6
-      },
+      sizes: {"xs": 7, "s": 10, "m": 12, "l": 11, "xl": 8, "xxl": 6},
       images: [
         "assets/images/shop/t-shirt.png",
         "assets/images/shop/t-shirt-back.png"
       ],
     ),
   };
-
-  /* "0": {
-      "name": "Dash Holiday Sweater",
-      "description":
-          "Keep warm and rep Dash at your next holiday party with this wonderfully cozy Dash holiday sweater.",
-      "price": 49,
-      "sizes": {
-        "x-small": 5,
-        "small": 3,
-        "medium": 8,
-        "large": 5,
-        "extra-large": 3,
-        "extra-extra large": 3
-      },
-      "images": [
-        "assets/images/shop/sweater-front.png",
-        "assets/images/shop/sweater-back.png"
-      ],
-    },
-    "1": {
-      "name": "Dash Plushie",
-      "description": "",
-      "price": 36,
-      "sizes": {"one-size": 98},
-      "images": ["assets/images/shop/dash-plushie.png"]
-    },
-    "2": {
-      "name": "Dash T-Shirt",
-      "description": "",
-      "price": 29,
-      "sizes": {
-        "x-small": 7,
-        "small": 10,
-        "medium": 12,
-        "large": 11,
-        "extra-large": 8,
-        "extra-extra large": 6
-      },
-      "images": [
-        "assets/images/shop/t-shirt.png",
-        "assets/images/shop/t-shirt-back.png"
-      ],
-    }, */
 
   Map<String, Product> getAllProducts() {
     return products;
@@ -154,6 +99,10 @@ class Product {
 
   Map<String, int> get sizes {
     return _sizes;
+  }
+
+  String get defaultSize {
+    return _sizes.keys.first;
   }
 
   List<String> get images {
