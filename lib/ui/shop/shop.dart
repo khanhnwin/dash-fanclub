@@ -10,7 +10,7 @@ class DashShop extends StatefulWidget {
 
 class _DashShopState extends State<DashShop> {
   final ShopInventory inventoryManager = ShopInventory();
-  late Map<String, Map<String, Object>> inventory;
+  late Map<String, Product> inventory;
 
   @override
   void initState() {
@@ -25,8 +25,8 @@ class _DashShopState extends State<DashShop> {
   Widget build(BuildContext context) {
     List<Widget> productTiles = [];
 
-    inventory.forEach((String productId, Map itemDetails) {
-      print(itemDetails);
+    inventory.forEach((String productId, Product item) {
+      print(item.productValues);
       productTiles.add(
         Card(
           child: Column(
@@ -35,7 +35,7 @@ class _DashShopState extends State<DashShop> {
                 width: 500,
                 height: 175,
                 child: Image(
-                  image: AssetImage(itemDetails["images"][0]),
+                  image: AssetImage(item.firstImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -43,7 +43,7 @@ class _DashShopState extends State<DashShop> {
                 height: 10,
               ),
               Text(
-                itemDetails["name"],
+                item.name,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _DashShopState extends State<DashShop> {
               ),
               Expanded(
                 child: Text(
-                  "\$${itemDetails["price"].toString()}",
+                  "\$${item.price.toString()}",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       fontSize: 14,
@@ -120,12 +120,5 @@ class _DashShopState extends State<DashShop> {
         ),
       ],
     );
-
-    /*
-    const ColoredBox(
-      child: SizedBox(height: 50, width: 50),
-      color: Colors.blue,
-    );
-    */
   }
 }
