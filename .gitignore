@@ -71,6 +71,7 @@ unlinked_spec.ds
 *.jks
 
 # iOS/XCode related
+ios/*
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
 **/ios/**/*.moved-aside
