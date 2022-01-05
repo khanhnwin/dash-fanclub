@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../api/dash_updates.dart';
+import '../../api/dash_updates.dart';
 import './news_card.dart';
 
 // ignore_for_file: avoid_print

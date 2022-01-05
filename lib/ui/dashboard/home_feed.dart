@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './dash_updater.dart';
+import 'dart:async';
 
 class NoDashUpdates extends StatelessWidget {
   const NoDashUpdates({Key? key}) : super(key: key);
@@ -28,7 +29,22 @@ class HomeFeed extends StatefulWidget {
 }
 
 class _HomeFeed extends State<HomeFeed> {
-  bool dashUpdatesAvailable = true;
+  bool dashUpdatesAvailable = false;
+
+  @override
+  initState() {
+    super.initState();
+
+    const fakeNetworkDelay = Duration(milliseconds: 1000);
+
+    Timer(
+        fakeNetworkDelay,
+        () => {
+              setState(() {
+                dashUpdatesAvailable = true;
+              })
+            });
+  }
 
   @override
   Widget build(BuildContext context) {

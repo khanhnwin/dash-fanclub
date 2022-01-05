@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'ui/home_feed.dart';
+import 'config/theme.dart';
+import 'ui/dashboard/home_feed.dart';
+import 'ui/shop/shop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,30 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dasher',
-      theme: ThemeData(
-          colorScheme: const ColorScheme(
-            primary: Color.fromRGBO(0, 169, 224, 1.0),
-            primaryVariant: Color.fromRGBO(0, 119, 200, 1.0),
-            secondary: Color.fromRGBO(29, 79, 145, 1.0),
-            secondaryVariant: Color.fromRGBO(198, 218, 231, 1.0),
-            error: Color(0xb71c1cff),
-            surface: Color.fromRGBO(255, 255, 255, 1.0),
-            onPrimary: Color.fromRGBO(255, 255, 255, 1.0),
-            background: Color.fromRGBO(198, 218, 231, 1.0),
-            onSecondary: Color.fromRGBO(255, 255, 255, 1.0),
-            onError: Color.fromRGBO(255, 255, 255, 1.0),
-            brightness: Brightness.light,
-            onBackground: Color(0x000000FF),
-            onSurface: Color(0x000000FF),
-          ),
-          textTheme: GoogleFonts.robotoTextTheme(
-            Theme.of(context).textTheme,
-          ),
-          appBarTheme: AppBarTheme(
-            titleTextStyle: GoogleFonts.patuaOne(
-              fontSize: 28,
-            ),
-          )),
+      theme: myDashTheme,
       home: const MyHomePage(title: 'MyDash'),
     );
   }
@@ -52,12 +30,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Widget _currentWidget = HomeFeed();
+  int _currentIndex = 0;
+
+  // TODO: Implement dumb-search just check if search phrase is in the title of the product
+  String _searchPhrase = "";
+
+  void loadScreen() {
+    switch (_currentIndex) {
+      case 0:
+        return setState(() => {_currentWidget = const HomeFeed()});
+      case 1:
+        return setState(() => {_currentWidget = const DashShop()});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title, style: const TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.shopping_bag_sharp, color: Colors.white),
+            onPressed: () => {},
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).colorScheme.primary,
@@ -65,15 +64,19 @@ class _MyHomePageState extends State<MyHomePage> {
         unselectedLabelStyle: TextStyle(color: Colors.blueGrey[400]),
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        currentIndex: 0,
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
+        onTap: (int tappedIndex) {
+          setState(() => {_currentIndex = tappedIndex});
+          loadScreen();
+        },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: Icon(Icons.shopping_bag),
             label: "Shop",
           ),
           BottomNavigationBarItem(
@@ -90,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: const HomeFeed(),
+      body: _currentWidget,
     );
   }
 }

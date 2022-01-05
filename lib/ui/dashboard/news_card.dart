@@ -47,9 +47,9 @@ class _NewsCard extends State<NewsCard> {
                     children: <TextSpan>[
                       TextSpan(
                         text: widget.comments[i]["author"],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.secondary),
                       ),
                       const TextSpan(text: " "),
                       TextSpan(text: widget.comments[i]["comment"]),
@@ -135,6 +135,9 @@ class _NewsCard extends State<NewsCard> {
               widget.content,
               textAlign: TextAlign.left,
             ),
+          ),
+          const SizedBox(
+            height: 10,
           ),
           _comments(context),
           Padding(
