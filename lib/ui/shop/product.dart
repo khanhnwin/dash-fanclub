@@ -15,6 +15,16 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   late String size = widget.product.defaultSize;
+  List<bool> _sizeSelector = List.generate(6, (_) => false);
+  int quantity = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _sizeSelector = List.generate(widget.product.sizes.length, (_) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +78,60 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 15),
+                    Center(
+                      child: Expanded(
+                        child: ToggleButtons(
+                          children: [
+                            Text(
+                              "xs".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Text(
+                              "s".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Text(
+                              "m".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Text(
+                              "l".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Text(
+                              "xl".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Text(
+                              "xxl".toUpperCase(),
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                          ],
+                          isSelected: _sizeSelector,
+                          onPressed: (int index) {
+                            setState(() {
+                              _sizeSelector = List.generate(
+                                  widget.product.sizes.length, (_) => false);
+                              _sizeSelector[index] = !_sizeSelector[index];
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 25, vertical: 5),
@@ -91,20 +154,24 @@ class _ProductPageState extends State<ProductPage> {
                         const Divider(),
                         Row(
                           children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
                             DropdownButton<String>(
-                              items: widget.product.sizes.keys
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
+                              items: [1, 2, 3, 4, 5, 6, 7]
+                                  .map<DropdownMenuItem<String>>((int value) {
                                 return DropdownMenuItem<String>(
-                                    child: Text(value.toUpperCase()),
-                                    value: value);
+                                    child: Text(value.toString().toUpperCase()),
+                                    value: value.toString());
                               }).toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  size = newValue!;
+                                  if (newValue is String) {
+                                    quantity = int.parse(newValue);
+                                  }
                                 });
                               },
-                              value: size,
+                              value: quantity.toString(),
                             ),
                             const SizedBox(
                               width: 20,
