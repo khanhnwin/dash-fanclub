@@ -32,7 +32,6 @@ class _DashShopState extends State<DashShop> {
     if (purchased.isNotEmpty) {
       cart.add(purchased);
     }
-
     print(cart);
   }
 
@@ -53,9 +52,12 @@ class _DashShopState extends State<DashShop> {
                 SizedBox(
                   width: 500,
                   height: 175,
-                  child: Image(
-                    image: AssetImage(item.firstImage),
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: item.firstImage,
+                    child: Image(
+                      image: AssetImage(item.firstImage),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -128,6 +130,13 @@ class _DashShopState extends State<DashShop> {
             ],
           ),
         ),
+        /*Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 0, 5),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text("${inventory.length.toString()} items"),
+          ),
+        ),*/
         Flexible(
           child: GridView.count(
             crossAxisCount: 2,
