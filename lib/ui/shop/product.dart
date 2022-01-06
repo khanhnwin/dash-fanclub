@@ -28,6 +28,15 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Text> textToggles = [];
+
+    widget.product.sizes.forEach((String keySize, int quantity) {
+      textToggles.add(Text(
+        keySize.toUpperCase(),
+        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+      ));
+    });
+
     return WillPopScope(
       child: MaterialApp(
         home: Scaffold(
@@ -82,44 +91,7 @@ class _ProductPageState extends State<ProductPage> {
                     Center(
                       child: Expanded(
                         child: ToggleButtons(
-                          children: [
-                            Text(
-                              "xs".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            Text(
-                              "s".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            Text(
-                              "m".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            Text(
-                              "l".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            Text(
-                              "xl".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            Text(
-                              "xxl".toUpperCase(),
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                          ],
+                          children: textToggles,
                           isSelected: _sizeSelector,
                           onPressed: (int index) {
                             setState(() {
