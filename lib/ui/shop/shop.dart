@@ -13,6 +13,7 @@ class _DashShopState extends State<DashShop> {
   final ShopInventory inventoryManager = ShopInventory();
   late Map<String, Product> inventory;
   late Product selectedProduct;
+  final List<Map<String, Object>> cart = [];
 
   @override
   void initState() {
@@ -23,8 +24,16 @@ class _DashShopState extends State<DashShop> {
 
   void applyFilter() {}
 
-  openProduct(Product item) {
-    //print(item.productValues);
+  void _openProduct(BuildContext context, Product item) async {
+    // Push Product page on top of stack
+    final purchased = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ProductPage(product: item)));
+
+    if (purchased.isNotEmpty) {
+      cart.add(purchased);
+    }
+
+    print(cart);
   }
 
   @override
@@ -36,10 +45,7 @@ class _DashShopState extends State<DashShop> {
       productTiles.add(
         GestureDetector(
           onTap: () {
-            print(item.productValues);
-            // Push Product page on top of stack
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProductPage(product: item)));
+            _openProduct(context, item);
           },
           child: Card(
             child: Column(
