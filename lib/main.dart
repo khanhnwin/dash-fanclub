@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dasher',
+      title: 'MyDash',
       theme: myDashTheme,
       home: const MyHomePage(title: 'MyDash'),
     );
@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Widget _currentWidget = HomeFeed();
   int _currentIndex = 0;
+  String _pageTitle = "MyDash";
 
   // TODO: Implement dumb-search just check if search phrase is in the title of the product
   String _searchPhrase = "";
@@ -39,9 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadScreen() {
     switch (_currentIndex) {
       case 0:
-        return setState(() => {_currentWidget = const HomeFeed()});
+        return setState(() {
+          _pageTitle = "MyDash";
+          _currentWidget = const HomeFeed();
+        });
       case 1:
-        return setState(() => {_currentWidget = const DashShop()});
+        return setState(() {
+          _pageTitle = "DashShop";
+          _currentWidget = const DashShop();
+        });
     }
   }
 
@@ -49,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
+        title: Text(_pageTitle, style: const TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         actions: <Widget>[
           IconButton(
