@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../api/shop_inventory.dart';
@@ -14,28 +16,46 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  late String size = widget.product.defaultSize;
-  List<bool> _sizeSelector = List.generate(6, (_) => false);
+  late String size = widget.product.sizes.keys.first;
+  late List<bool> _sizeSelector;
   int quantity = 1;
+  int quantityAvailableForSize = 0;
+  late List<String> sizeList = widget.product.sizes.keys.toList();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
     _sizeSelector = List.generate(widget.product.sizes.length, (_) => false);
+    _sizeSelector[0] = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Text> textToggles = [];
+    List<Widget> textToggles = [];
 
     widget.product.sizes.forEach((String keySize, int quantity) {
-      textToggles.add(Text(
-        keySize.toUpperCase(),
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-      ));
+      textToggles.add(
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          child: Text(
+            keySize.toUpperCase(),
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          ),
+        ),
+      );
     });
+
+    int? quantityAvailable = widget.product.sizes[size];
+
+    if (quantityAvailable is int) {
+      quantityAvailableForSize = min(quantityAvailable, 7);
+    }
+
+    List<int> quantityDropDown = [];
+    for (int i = 0; i < quantityAvailableForSize + 1; i++) {
+      quantityDropDown.add(i);
+    }
 
     return WillPopScope(
       child: MaterialApp(
@@ -89,18 +109,22 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     const SizedBox(height: 15),
                     Center(
-                      child: Expanded(
-                        child: ToggleButtons(
-                          children: textToggles,
-                          isSelected: _sizeSelector,
-                          onPressed: (int index) {
-                            setState(() {
+                      child: ToggleButtons(
+                        children: textToggles,
+                        isSelected: _sizeSelector,
+                        onPressed: (int index) {
+                          setState(() {
+                            if (_sizeSelector.length > 1) {
                               _sizeSelector = List.generate(
-                                  widget.product.sizes.length, (_) => false);
-                              _sizeSelector[index] = !_sizeSelector[index];
-                            });
-                          },
-                        ),
+                                  _sizeSelector.length, (_) => false);
+                            }
+                            _sizeSelector[index] = !_sizeSelector[index];
+
+                            size = sizeList[index];
+
+                            print(size);
+                          });
+                        },
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -130,7 +154,7 @@ class _ProductPageState extends State<ProductPage> {
                               width: 10,
                             ),
                             DropdownButton<String>(
-                              items: [1, 2, 3, 4, 5, 6, 7]
+                              items: quantityDropDown
                                   .map<DropdownMenuItem<String>>((int value) {
                                 return DropdownMenuItem<String>(
                                     child: Text(value.toString().toUpperCase()),
@@ -156,10 +180,15 @@ class _ProductPageState extends State<ProductPage> {
                                             Color>(
                                         Theme.of(context).colorScheme.primary)),
                                 onPressed: () {
+                                  if (quantity == 0) {
+                                    return;
+                                  }
+
                                   print("Added ${widget.product.name} to bag!");
                                   Navigator.of(context).pop({
                                     "product": widget.product,
-                                    "size": size
+                                    "size": size,
+                                    "quantity": quantity,
                                   });
                                 },
                               ),
