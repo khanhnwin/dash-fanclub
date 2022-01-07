@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../api/shop_inventory.dart';
+import '../../api/bag_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +17,7 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  late String size = widget.product.sizes.keys.first;
+  late String? size = widget.product.sizes.keys.first;
   late List<bool> _sizeSelector;
   int quantity = 1;
   int quantityAvailableForSize = 0;
@@ -33,6 +34,12 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> textToggles = [];
+
+    Object object = true;
+
+    if (object is String) {
+      object.length;
+    }
 
     widget.product.sizes.forEach((String keySize, int quantity) {
       textToggles.add(
@@ -120,7 +127,9 @@ class _ProductPageState extends State<ProductPage> {
                             }
                             _sizeSelector[index] = !_sizeSelector[index];
 
-                            size = sizeList[index];
+                            _sizeSelector[index] == true
+                                ? size = sizeList[index]
+                                : size = null;
 
                             print(size);
                           });
@@ -184,12 +193,15 @@ class _ProductPageState extends State<ProductPage> {
                                     return;
                                   }
 
+                                  String? localSize = size;
+
+                                  if (localSize == null) {
+                                    return Navigator.of(context).pop(null);
+                                  }
+
                                   print("Added ${widget.product.name} to bag!");
-                                  Navigator.of(context).pop({
-                                    "product": widget.product,
-                                    "size": size,
-                                    "quantity": quantity,
-                                  });
+                                  Navigator.of(context).pop(BagItem(
+                                      widget.product, quantity, localSize));
                                 },
                               ),
                             ),
@@ -205,7 +217,7 @@ class _ProductPageState extends State<ProductPage> {
                     baseline: MediaQuery.of(context).viewPadding.top + 15,
                     baselineType: TextBaseline.alphabetic,
                     child: IconButton(
-                      onPressed: () => {Navigator.of(context).pop({})},
+                      onPressed: () => {Navigator.of(context).pop(null)},
                       icon: const Icon(Icons.arrow_back),
                     ),
                   ),

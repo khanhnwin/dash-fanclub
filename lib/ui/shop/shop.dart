@@ -1,5 +1,7 @@
+import 'package:dash_fanclub_app/api/bag_item.dart';
 import 'package:flutter/material.dart';
 import '../../api/shop_inventory.dart';
+import '../../api/bag.dart';
 import './product.dart';
 
 class DashShop extends StatefulWidget {
@@ -13,7 +15,7 @@ class _DashShopState extends State<DashShop> {
   final ShopInventory inventoryManager = ShopInventory();
   late Map<String, Product> inventory;
   late Product selectedProduct;
-  final List<Map<String, Object>> cart = [];
+  final Bag bag = Bag();
 
   @override
   void initState() {
@@ -29,10 +31,11 @@ class _DashShopState extends State<DashShop> {
     final purchased = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => ProductPage(product: item)));
 
-    if (purchased.isNotEmpty) {
-      cart.add(purchased);
+    if (purchased is BagItem) {
+      bag.add(purchased);
     }
-    print(cart);
+
+    bag.outputBag();
   }
 
   @override
