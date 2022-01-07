@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../api/shop_inventory.dart';
 import '../../api/bag.dart';
 import './product.dart';
+import './bag.dart';
 
 class DashShop extends StatefulWidget {
   const DashShop({Key? key}) : super(key: key);
@@ -36,6 +37,13 @@ class _DashShopState extends State<DashShop> {
     }
 
     bag.outputBag();
+  }
+
+  void _openBag(BuildContext context) async {
+    final checkout = Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BagPage(bag: bag)));
+
+    // if checkout is true, then clear bag?
   }
 
   @override
@@ -93,61 +101,78 @@ class _DashShopState extends State<DashShop> {
       );
     });
 
-    return Column(
+    return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: Row(
-            children: [
-              ElevatedButton(
-                onPressed: applyFilter,
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.filter_list,
-                      size: 16,
-                      semanticLabel: "filter",
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: applyFilter,
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.filter_list,
+                          size: 16,
+                          semanticLabel: "filter",
+                        ),
+                        SizedBox(width: 10),
+                        Text("filter", style: TextStyle(fontSize: 16)),
+                      ],
                     ),
-                    SizedBox(width: 10),
-                    Text("filter", style: TextStyle(fontSize: 16)),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Expanded(
-                child: SizedBox(
-                  height: 38,
-                  child: TextField(
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      hintText: "Search",
-                      hintStyle: TextStyle(
-                        fontSize: 14,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Expanded(
+                    child: SizedBox(
+                      height: 38,
+                      child: TextField(
+                        autofocus: false,
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          hintStyle: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
-        /*Padding(
+            ),
+            /*Padding(
           padding: const EdgeInsets.fromLTRB(15, 10, 0, 5),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text("${inventory.length.toString()} items"),
           ),
         ),*/
-        Flexible(
-          child: GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 20,
-            padding: const EdgeInsets.all(10),
-            children: productTiles,
-            childAspectRatio: 0.70,
+            Flexible(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 20,
+                padding: const EdgeInsets.all(10),
+                children: productTiles,
+                childAspectRatio: 0.70,
+              ),
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: EdgeInsets.all(25),
+            child: FloatingActionButton(
+              child: Icon(Icons.shopping_bag_sharp, color: Colors.white),
+              onPressed: () {
+                _openBag(context);
+              },
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+            ),
           ),
         ),
       ],

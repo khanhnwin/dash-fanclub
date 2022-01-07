@@ -65,165 +65,162 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     return WillPopScope(
-      child: MaterialApp(
-        home: Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Stack(
-              children: [
-                ListView(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        aspectRatio: 1 / 1,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: false,
-                      ),
-                      items: widget.product.images.map((String image) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Hero(
-                                tag: image,
-                                child: Image(
-                                    image: AssetImage(image),
-                                    fit: BoxFit.fitWidth),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      aspectRatio: 1 / 1,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
                     ),
-                    Center(
-                      child: Text(
-                        widget.product.name,
-                        style: GoogleFonts.patuaOne(
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Center(
-                      child: Text(
-                        "\$${widget.product.price.toString()}",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Center(
-                      child: ToggleButtons(
-                        children: textToggles,
-                        isSelected: _sizeSelector,
-                        onPressed: (int index) {
-                          setState(() {
-                            if (_sizeSelector.length > 1) {
-                              _sizeSelector = List.generate(
-                                  _sizeSelector.length, (_) => false);
-                            }
-                            _sizeSelector[index] = !_sizeSelector[index];
-
-                            _sizeSelector[index] == true
-                                ? size = sizeList[index]
-                                : size = null;
-
-                            print(size);
-                          });
+                    items: widget.product.images.map((String image) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Hero(
+                              tag: image,
+                              child: Image(
+                                  image: AssetImage(image),
+                                  fit: BoxFit.fitWidth),
+                            ),
+                          );
                         },
+                      );
+                    }).toList(),
+                  ),
+                  Center(
+                    child: Text(
+                      widget.product.name,
+                      style: GoogleFonts.patuaOne(
+                        fontSize: 24,
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                      child: Text(
-                        widget.product.description,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
+                  ),
+                  const SizedBox(height: 5),
+                  Center(
+                    child: Text(
+                      "\$${widget.product.price.toString()}",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    const SizedBox(height: 15),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    height: 100,
-                    child: Column(
-                      children: [
-                        const Divider(),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            DropdownButton<String>(
-                              items: quantityDropDown
-                                  .map<DropdownMenuItem<String>>((int value) {
-                                return DropdownMenuItem<String>(
-                                    child: Text(value.toString().toUpperCase()),
-                                    value: value.toString());
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  if (newValue is String) {
-                                    quantity = int.parse(newValue);
-                                  }
-                                });
+                  ),
+                  const SizedBox(height: 15),
+                  Center(
+                    child: ToggleButtons(
+                      children: textToggles,
+                      isSelected: _sizeSelector,
+                      onPressed: (int index) {
+                        setState(() {
+                          if (_sizeSelector.length > 1) {
+                            _sizeSelector = List.generate(
+                                _sizeSelector.length, (_) => false);
+                          }
+                          _sizeSelector[index] = !_sizeSelector[index];
+
+                          _sizeSelector[index] == true
+                              ? size = sizeList[index]
+                              : size = null;
+
+                          print(size);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                    child: Text(
+                      widget.product.description,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  height: 100,
+                  child: Column(
+                    children: [
+                      const Divider(),
+                      Row(
+                        children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          DropdownButton<String>(
+                            items: quantityDropDown
+                                .map<DropdownMenuItem<String>>((int value) {
+                              return DropdownMenuItem<String>(
+                                  child: Text(value.toString().toUpperCase()),
+                                  value: value.toString());
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                if (newValue is String) {
+                                  quantity = int.parse(newValue);
+                                }
+                              });
+                            },
+                            value: quantity.toString(),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                              child: Text("Add to Bag"),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<
+                                          Color>(
+                                      Theme.of(context).colorScheme.primary)),
+                              onPressed: () {
+                                if (quantity == 0) {
+                                  return;
+                                }
+
+                                String? localSize = size;
+
+                                if (localSize == null) {
+                                  return Navigator.of(context).pop(null);
+                                }
+
+                                print("Added ${widget.product.name} to bag!");
+                                Navigator.of(context).pop(BagItem(
+                                    widget.product, quantity, localSize));
                               },
-                              value: quantity.toString(),
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Text("Add to Bag"),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<
-                                            Color>(
-                                        Theme.of(context).colorScheme.primary)),
-                                onPressed: () {
-                                  if (quantity == 0) {
-                                    return;
-                                  }
-
-                                  String? localSize = size;
-
-                                  if (localSize == null) {
-                                    return Navigator.of(context).pop(null);
-                                  }
-
-                                  print("Added ${widget.product.name} to bag!");
-                                  Navigator.of(context).pop(BagItem(
-                                      widget.product, quantity, localSize));
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Baseline(
-                    baseline: MediaQuery.of(context).viewPadding.top + 15,
-                    baselineType: TextBaseline.alphabetic,
-                    child: IconButton(
-                      onPressed: () => {Navigator.of(context).pop(null)},
-                      icon: const Icon(Icons.arrow_back),
-                    ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Baseline(
+                  baseline: MediaQuery.of(context).viewPadding.top + 15,
+                  baselineType: TextBaseline.alphabetic,
+                  child: IconButton(
+                    onPressed: () => {Navigator.of(context).pop(null)},
+                    icon: const Icon(Icons.arrow_back),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
