@@ -45,13 +45,33 @@ class _BagPageState extends State<BagPage> {
         body: Padding(
           padding: EdgeInsets.all(15),
           child: Baseline(
-            baseline: MediaQuery.of(context).viewPadding.top + 15,
+            baseline: MediaQuery.of(context).viewPadding.top + 25,
             baselineType: TextBaseline.alphabetic,
             child: Column(
               children: [
-                Text("Shopping Bag"),
-                Text("${widget.bag.items.length} items"),
+                Container(
+                  child: const Text(
+                    "Shopping Bag",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: Text(
+                    "${widget.bag.items.length} items",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const Divider(),
                 BagList(bag: widget.bag),
+                const Divider(),
                 Text("Subtotal \$${subtotal.toStringAsFixed(2)}"),
                 Text("Estimated Shipping \$${shipping.toStringAsFixed(2)}"),
                 Text("Estimated Tax \$${tax.toStringAsFixed(2)}"),
@@ -83,48 +103,51 @@ class _BagListState extends State<BagList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return Card(
-            child: Row(children: [
-          SizedBox(
-            width: 125,
-            height: 125,
-            child: Image(
-              image: AssetImage(items[index].item.firstImage),
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                child: Text(
-                  items[index].item.name,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondaryVariant),
-                ),
+    return SizedBox(
+      height: 530,
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Card(
+              child: Row(children: [
+            SizedBox(
+              width: 125,
+              height: 125,
+              child: Image(
+                image: AssetImage(items[index].item.firstImage),
+                fit: BoxFit.cover,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                   child: Text(
-                    "Size: ${items[index].size}",
-                    textAlign: TextAlign.left,
+                    items[index].item.name,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.secondaryVariant),
                   ),
                 ),
-              ),
-              SizedBox(height: 30),
-              Text("Quantity: ${items[index].quantity.toString()}"),
-              Text("\$${items[index].item.price.toString()}"),
-            ],
-          )
-        ]));
-      },
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      "Size: ${items[index].size}",
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                Text("Quantity: ${items[index].quantity.toString()}"),
+                Text("\$${items[index].item.price.toString()}"),
+              ],
+            )
+          ]));
+        },
+      ),
     );
   }
 }
