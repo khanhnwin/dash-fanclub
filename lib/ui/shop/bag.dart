@@ -75,20 +75,31 @@ class _BagPageState extends State<BagPage> {
                 SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
-                  child: Text("Subtotal \$${subtotal.toStringAsFixed(2)}"),
+                  child: Text(
+                    "Subtotal \t\$${subtotal.toStringAsFixed(2)}",
+                    textAlign: TextAlign.right,
+                  ),
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                      "Estimated Shipping \$${shipping.toStringAsFixed(2)}"),
+                    "Estimated Shipping \t\$${shipping.toStringAsFixed(2)}",
+                    textAlign: TextAlign.right,
+                  ),
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: Text("Estimated Tax \$${tax.toStringAsFixed(2)}"),
+                  child: Text(
+                    "Estimated Tax \t\$${tax.toStringAsFixed(2)}",
+                    textAlign: TextAlign.right,
+                  ),
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: Text("Total \$${total.toStringAsFixed(2)}"),
+                  child: Text(
+                    "Total \t\$${total.toStringAsFixed(2)}",
+                    textAlign: TextAlign.right,
+                  ),
                 ),
                 SizedBox(height: 10),
                 SizedBox(
@@ -165,7 +176,7 @@ class _BagListState extends State<BagList> {
                       width: 195,
                       child: Container(
                         child: Text(
-                          "Size: ${items[index].size}",
+                          "Size: ${items[index].size.toUpperCase()}",
                           textAlign: TextAlign.left,
                         ),
                       ),
