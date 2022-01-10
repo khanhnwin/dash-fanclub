@@ -64,7 +64,7 @@ class _BagPageState extends State<BagPage> {
                 Container(
                   child: Text(
                     "${widget.bag.items.length} items",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                     ),
                   ),
@@ -72,13 +72,38 @@ class _BagPageState extends State<BagPage> {
                 const Divider(),
                 BagList(bag: widget.bag),
                 const Divider(),
-                Text("Subtotal \$${subtotal.toStringAsFixed(2)}"),
-                Text("Estimated Shipping \$${shipping.toStringAsFixed(2)}"),
-                Text("Estimated Tax \$${tax.toStringAsFixed(2)}"),
-                Text("Total \$${total.toStringAsFixed(2)}"),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Proceed to checkout"),
+                SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text("Subtotal \$${subtotal.toStringAsFixed(2)}"),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                      "Estimated Shipping \$${shipping.toStringAsFixed(2)}"),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text("Estimated Tax \$${tax.toStringAsFixed(2)}"),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text("Total \$${total.toStringAsFixed(2)}"),
+                ),
+                SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context, true);
+                    },
+                    child: const Text(
+                      "Checkout",
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).colorScheme.primary)),
+                  ),
                 ),
               ],
             ),
@@ -119,32 +144,55 @@ class _BagListState extends State<BagList> {
                 fit: BoxFit.cover,
               ),
             ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                  child: Text(
-                    items[index].item.name,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondaryVariant),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      "Size: ${items[index].size}",
-                      textAlign: TextAlign.left,
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 195,
+                      child: Text(
+                        items[index].item.name,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).colorScheme.secondaryVariant),
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(height: 30),
-                Text("Quantity: ${items[index].quantity.toString()}"),
-                Text("\$${items[index].item.price.toString()}"),
-              ],
-            )
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: 195,
+                      child: Container(
+                        child: Text(
+                          "Size: ${items[index].size}",
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 40),
+                    Row(children: [
+                      SizedBox(
+                        width: 97,
+                        child: Container(
+                          child:
+                              Text("Qty: ${items[index].quantity.toString()}"),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 97,
+                        child: Container(
+                          child: Text("\$${items[index].item.price.toString()}",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ))
           ]));
         },
       ),

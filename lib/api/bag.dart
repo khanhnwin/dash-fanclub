@@ -35,4 +35,10 @@ class Bag {
     }
     print("============================");
   }
+
+  List<BagItem> clear() {
+    items = [];
+
+    return items;
+  }
 }

@@ -40,10 +40,16 @@ class _DashShopState extends State<DashShop> {
   }
 
   void _openBag(BuildContext context) async {
-    final checkout = Navigator.push(
+    final checkout = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => BagPage(bag: bag)));
 
     // if checkout is true, then clear bag?
+    if (checkout is bool) {
+      if (checkout == true) {
+        bag.clear();
+        print("Checkout was a sucess, bag cleared!");
+      }
+    }
   }
 
   @override
