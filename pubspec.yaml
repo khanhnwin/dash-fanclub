@@ -26,11 +26,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/dash.png
-    - assets/images/shop/dash_sweatshirt_front.png
-    - assets/images/shop/dash_sweatshirt_back.png
-    - assets/images/shop/dash_tshirt_front.png
-    - assets/images/shop/dash_tshirt_back.png
-    - assets/images/shop/dash-plushie.png
+    - assets/images/shop/
 
 flutter_icons:
   image_path: "assets/icons/icon.png" 
