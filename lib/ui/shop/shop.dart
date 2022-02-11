@@ -163,7 +163,7 @@ class _DashShopState extends State<DashShop> {
                 mainAxisSpacing: 20,
                 padding: const EdgeInsets.all(10),
                 children: productTiles,
-                childAspectRatio: 0.70,
+                childAspectRatio: 0.7,
               ),
             ),
           ],

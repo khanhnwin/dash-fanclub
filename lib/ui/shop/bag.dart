@@ -142,7 +142,7 @@ class _BagListState extends State<BagList> {
     return SizedBox(
       height: 530,
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         itemCount: items.length,
         itemBuilder: (context, index) {
           return Card(
@@ -159,49 +159,42 @@ class _BagListState extends State<BagList> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 195,
-                      child: Text(
-                        items[index].item.name,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color:
-                                Theme.of(context).colorScheme.secondaryVariant),
-                      ),
+                    Text(
+                      items[index].item.name,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color:
+                              Theme.of(context).colorScheme.secondaryVariant),
                     ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      width: 195,
-                      child: Container(
-                        child: Text(
-                          "Size: ${items[index].size.toUpperCase()}",
+                    const SizedBox(height: 10),
+                    Text(
+                      "Size: ${items[index].size.toUpperCase()}",
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          "Qty: ${items[index].quantity.toString()}",
                           textAlign: TextAlign.left,
                         ),
-                      ),
+                        const SizedBox(
+                          width: 125,
+                        ),
+                        Text(
+                          "\$${items[index].item.price.toString()}",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 40),
-                    Row(children: [
-                      SizedBox(
-                        width: 97,
-                        child: Container(
-                          child:
-                              Text("Qty: ${items[index].quantity.toString()}"),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 97,
-                        child: Container(
-                          child: Text("\$${items[index].item.price.toString()}",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                    ]),
                   ],
                 ))
           ]));

@@ -8,8 +8,8 @@ class ShopInventory {
       price: 49,
       sizes: {"xs": 5, "s": 3, "m": 8, "l": 5, "xl": 3, "xxl": 3},
       images: [
-        "assets/images/shop/sweater-front.png",
-        "assets/images/shop/sweater-back.png"
+        "assets/images/shop/dash_sweatshirt_front.png",
+        "assets/images/shop/dash_sweatshirt_back.png"
       ],
     ),
     "1": Product(
@@ -28,8 +28,8 @@ class ShopInventory {
       price: 29,
       sizes: {"xs": 7, "s": 10, "m": 12, "l": 11, "xl": 8, "xxl": 6},
       images: [
-        "assets/images/shop/t-shirt.png",
-        "assets/images/shop/t-shirt-back.png"
+        "assets/images/shop/dash_tshirt_front.png",
+        "assets/images/shop/dash_tshirt_back.png"
       ],
     ),
   };

@@ -181,11 +181,12 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                              child: Text("Add to Bag"),
+                              child: const Text("Add to Bag"),
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<
-                                          Color>(
-                                      Theme.of(context).colorScheme.primary)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Theme.of(context).colorScheme.primary),
+                              ),
                               onPressed: () {
                                 if (quantity == 0) {
                                   return;
@@ -219,7 +220,7 @@ class _ProductPageState extends State<ProductPage> {
                     icon: const Icon(Icons.arrow_back),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
