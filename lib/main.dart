@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'config/theme.dart';
 import 'ui/dashboard/home_feed.dart';
 import 'ui/shop/shop.dart';
+import 'package:get_it/get_it.dart';
 
+GetIt getIt = GetIt.instance;
 void main() {
   runApp(const MyApp());
 }

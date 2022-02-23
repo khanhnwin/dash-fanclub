@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/comment.dart';
+import 'package:dash_fanclub_app/ui/shared/shared.dart';
 
 // ignore_for_file: avoid_print
 
@@ -235,18 +236,5 @@ class _CommentBoxState extends State<CommentBox> {
             _commentController.clear();
           }),
     );
-  }
-}
-
-class Whitespace extends StatelessWidget {
-  const Whitespace({this.width = 0.0, this.height = 0.0, Key? key})
-      : super(key: key);
-
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(width: width, height: height);
   }
 }
