@@ -24,8 +24,6 @@ class _DashShopState extends State<DashShop> {
 
   @override
   void initState() {
-    getIt.registerSingleton<Bag>(Bag());
-
     super.initState();
     inventory = inventoryManager.getAllProducts();
   }

@@ -3,9 +3,11 @@ import 'config/theme.dart';
 import 'ui/dashboard/home_feed.dart';
 import 'ui/shop/shop.dart';
 import 'package:get_it/get_it.dart';
+import '../../api/bag.dart';
 
 GetIt getIt = GetIt.instance;
 void main() {
+  getIt.registerSingleton<Bag>(Bag());
   runApp(const MyApp());
 }
 
