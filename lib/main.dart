@@ -34,9 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   String _pageTitle = "MyDash";
 
-  // TODO: Implement dumb-search just check if search phrase is in the title of the product
-  String _searchPhrase = "";
-
   void loadScreen() {
     switch (_currentIndex) {
       case 0:
