@@ -35,6 +35,10 @@ class _HomeFeed extends State<HomeFeed> {
   initState() {
     super.initState();
 
+    fakeFetchData();
+  }
+
+  void fakeFetchData() {
     const fakeNetworkDelay = Duration(milliseconds: 1000);
 
     Timer(
