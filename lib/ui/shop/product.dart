@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:dash_fanclub_app/ui/shared/whitespace.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../api/bag.dart';
 import '../../api/shop_inventory.dart';
 import '../../api/bag_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
