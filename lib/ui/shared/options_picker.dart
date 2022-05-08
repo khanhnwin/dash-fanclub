@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
+
 import '../../api/api.dart';
-
-class SingleOptionPicker<T extends SelectableOption> extends StatelessWidget {
-  const SingleOptionPicker(
-      {Key? key, required this.options, required this.setSingleOption})
-      : super(key: key);
-
-  final Map<T, int> options;
-  final Function(T) setSingleOption;
-
-  @override
-  Widget build(BuildContext context) {
-    return OptionsPicker<T>(
-      options: options,
-      setOption: (Set<T> options) => setSingleOption(options.first),
-      allowsMultiple: false,
-    );
-  }
-}
 
 class OptionsPicker<T extends SelectableOption> extends StatefulWidget {
   const OptionsPicker(
       {required this.options,
-      required this.setOption,
+      required this.onSelected,
       this.allowsMultiple = false,
       Key? key})
       : super(key: key);
 
   final Map<T, int> options;
-  final Function(Set<T>) setOption;
+  final Function(Set<T>) onSelected;
   final bool allowsMultiple;
 
   @override
   _OptionsPickerState<T> createState() => _OptionsPickerState<T>();
+
+  factory OptionsPicker.single({
+    Key? key,
+    required Map<T, int> options,
+    required Function(T) onSelected,
+  }) =>
+      OptionsPicker<T>(
+        key: key,
+        options: options,
+        onSelected: (Set<T> options) => onSelected(options.first),
+        allowsMultiple: false,
+      );
 }
 
 class _OptionsPickerState<T extends SelectableOption>
@@ -102,7 +97,7 @@ class _OptionsPickerState<T extends SelectableOption>
             _selectedOptionsNames.add(optionsList[index]);
           }
 
-          widget.setOption(_selectedOptionsNames);
+          widget.onSelected(_selectedOptionsNames);
         });
       },
     );
