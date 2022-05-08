@@ -1,16 +1,16 @@
 import 'dart:math';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dash_fanclub_app/ui/shared/whitespace.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../api/shop_inventory.dart';
-import '../../api/bag_item.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../api/bag.dart';
 import 'package:get_it/get_it.dart';
-import '../shared/shared.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../api/api.dart';
+import '../../api/bag.dart';
+import '../../api/bag_item.dart';
+import '../../api/shop_inventory.dart';
+import '../shared/shared.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -108,24 +108,24 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   const SizedBox(height: 15),
                   Center(
-                    child: SingleOptionPicker<ProductSize>(
+                    child: OptionsPicker<ProductSize>.single(
                       options: widget.product.sizes.map<ProductSize, int>(
                           (String name, int quantity) =>
                               MapEntry<ProductSize, int>(
                                   ProductSize(name), quantity)),
-                      setSingleOption: setSize,
+                      onSelected: setSize,
                     ),
                   ),
                   const SizedBox(height: 15),
                   Center(
-                    child: SingleOptionPicker<ProductColor>(
+                    child: OptionsPicker<ProductColor>.single(
                       options: const {
                         ProductColor(name: "DashBlue", color: Colors.blue): 5,
                         ProductColor(name: "Black", color: Colors.black): 9,
                         ProductColor(name: "Pink", color: Colors.pink): 10,
                         ProductColor(name: "Orange", color: Colors.orange): 4,
                       },
-                      setSingleOption: setColor,
+                      onSelected: setColor,
                     ),
                   ),
                   const SizedBox(height: 15),
