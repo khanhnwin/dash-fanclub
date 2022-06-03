@@ -1,13 +1,17 @@
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
+
 import 'config/theme.dart';
 import 'ui/dashboard/home_feed.dart';
 import 'ui/shop/shop.dart';
-import 'package:get_it/get_it.dart';
+import 'ui/chat/chat.dart';
 import '../../api/bag.dart';
+import 'api/chat_manager.dart';
 
 GetIt getIt = GetIt.instance;
 void main() {
   getIt.registerSingleton<Bag>(Bag());
+  getIt.registerSingleton<ChatManager>(ChatManager());
   runApp(const MyApp());
 }
 
@@ -49,6 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
         return setState(() {
           _pageTitle = "DashShop";
           _currentWidget = const DashShop();
+        });
+      case 2:
+        return setState(() {
+          _pageTitle = "DashBot";
+          _currentWidget = const Chat();
         });
     }
   }
