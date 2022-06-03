@@ -9,6 +9,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../api/bag.dart';
 import 'package:get_it/get_it.dart';
+import '../shared/shared.dart';
+import '../../api/api.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -32,9 +34,9 @@ class _ProductPageState extends State<ProductPage> {
     _size = widget.product.sizes.keys.first;
   }
 
-  void setSize(String size) {
+  void setSize(ProductSize size) {
     setState(() {
-      _size = size;
+      _size = size.name;
       int quantityAvailable = widget.product.sizes[_size] ?? 1;
       quantityAvailableForSize = min(quantityAvailable, 7);
     });
@@ -45,6 +47,8 @@ class _ProductPageState extends State<ProductPage> {
       quantity = newQuantity;
     });
   }
+
+  void setColor(ProductColor color) {}
 
   void addToBag() {
     print("Add to bag!");
@@ -104,9 +108,24 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   const SizedBox(height: 15),
                   Center(
-                    child: SizePicker(
-                      sizeOptions: widget.product.sizes,
-                      setSize: setSize,
+                    child: SingleOptionPicker<ProductSize>(
+                      options: widget.product.sizes.map<ProductSize, int>(
+                          (String name, int quantity) =>
+                              MapEntry<ProductSize, int>(
+                                  ProductSize(name), quantity)),
+                      setSingleOption: setSize,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Center(
+                    child: SingleOptionPicker<ProductColor>(
+                      options: const {
+                        ProductColor(name: "DashBlue", color: Colors.blue): 5,
+                        ProductColor(name: "Black", color: Colors.black): 9,
+                        ProductColor(name: "Pink", color: Colors.pink): 10,
+                        ProductColor(name: "Orange", color: Colors.orange): 4,
+                      },
+                      setSingleOption: setColor,
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -194,70 +213,6 @@ class ProductImageCarousel extends StatelessWidget {
           },
         );
       }).toList(),
-    );
-  }
-}
-
-class SizePicker extends StatefulWidget {
-  const SizePicker({required this.sizeOptions, required this.setSize, Key? key})
-      : super(key: key);
-
-  final Map<String, int> sizeOptions;
-  final Function setSize;
-
-  @override
-  _SizePickerState createState() => _SizePickerState();
-}
-
-class _SizePickerState extends State<SizePicker> {
-  late String? size;
-  late List<bool> _sizeSelector;
-  late List<String> sizeList;
-
-  @override
-  void initState() {
-    super.initState();
-    size = widget.sizeOptions.keys.first;
-    _sizeSelector = List.generate(widget.sizeOptions.length, (_) => false);
-    _sizeSelector[0] = true;
-    sizeList = widget.sizeOptions.keys.toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> textToggles = [];
-
-    widget.sizeOptions.forEach((String keySize, int quantity) {
-      textToggles.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          child: Text(
-            keySize.toUpperCase(),
-            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-          ),
-        ),
-      );
-    });
-
-    return ToggleButtons(
-      children: textToggles,
-      isSelected: _sizeSelector,
-      onPressed: (int index) {
-        setState(() {
-          if (_sizeSelector.length > 1) {
-            _sizeSelector = List.generate(_sizeSelector.length, (_) => false);
-          }
-          _sizeSelector[index] = !_sizeSelector[index];
-
-          if (_sizeSelector[index] == false) {
-            _sizeSelector[0] == true;
-          }
-
-          size = sizeList[index];
-
-          widget.setSize(size);
-        });
-      },
     );
   }
 }
