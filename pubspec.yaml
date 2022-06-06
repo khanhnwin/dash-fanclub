@@ -16,6 +16,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   get_it: ^7.2.0
+  chat_bubbles: ^1.2.0
+  intl: ^0.17.0
+  any_link_preview: ^2.0.8
+  linkify: ^4.1.0
 
 dev_dependencies:
   flutter_test:

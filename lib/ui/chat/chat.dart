@@ -1,6 +1,9 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
+import 'package:any_link_preview/any_link_preview.dart';
+import 'package:linkify/linkify.dart';
+
 import '../../api/chat_manager.dart';
 import 'dart:async';
 import 'dart:math';
@@ -27,6 +30,18 @@ class _ChatState extends State<Chat> {
     );
   }
 
+  String? getLink(String input) {
+    List<LinkifyElement> links = linkify(input);
+
+    for (LinkifyElement element in links) {
+      if (element is LinkableElement) {
+        return element.url;
+      }
+    }
+
+    return null;
+  }
+
   void getMessages() {
     setState(() {
       messages = getIt<ChatManager>().messages;
@@ -42,7 +57,7 @@ class _ChatState extends State<Chat> {
 
       getIt<ChatManager>().newMessage(inputMessage);
 
-      scrollToBottom();
+      controller.clear();
 
       getMessages();
 
@@ -54,20 +69,36 @@ class _ChatState extends State<Chat> {
         getMessages();
       });
     }
-    controller.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(children: [
         Expanded(
           child: ListView.builder(
               controller: scrollController,
               itemCount: messages.length,
               itemBuilder: (context, index) {
-                return Row(children: [
+                String message = messages[index].message;
+
+                Color backgroundColor = messages[index].sender == 'Khanh'
+                    ? Color.fromARGB(255, 38, 195, 247)
+                    : Color.fromARGB(255, 228, 228, 228);
+
+                Widget textBubble = Expanded(
+                  child: BubbleNormal(
+                    text: message,
+                    isSender: messages[index].sender == 'Khanh',
+                    color: messages[index].sender == 'Khanh'
+                        ? Color.fromARGB(255, 38, 195, 247)
+                        : Color.fromARGB(255, 228, 228, 228),
+                    tail: true,
+                  ),
+                );
+
+                Widget text = Row(children: [
                   if (messages[index].sender == 'Dash')
                     SizedBox(
                         child: Padding(
@@ -77,16 +108,7 @@ class _ChatState extends State<Chat> {
                               fit: BoxFit.cover,
                             )),
                         width: 50),
-                  Expanded(
-                    child: BubbleNormal(
-                      text: messages[index].message,
-                      isSender: messages[index].sender == 'Khanh',
-                      color: messages[index].sender == 'Khanh'
-                          ? Color.fromARGB(255, 38, 195, 247)
-                          : Color.fromARGB(255, 228, 228, 228),
-                      tail: true,
-                    ),
-                  ),
+                  textBubble,
                   if (messages[index].sender != 'Dash')
                     SizedBox(
                         child: Padding(
@@ -101,6 +123,36 @@ class _ChatState extends State<Chat> {
                         ),
                         width: 50),
                 ]);
+
+                String? link = getLink(message);
+
+                if (link != null) {
+                  Widget linkBubble = Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: AnyLinkPreview(
+                      link: link,
+                      displayDirection: UIDirection.uiDirectionHorizontal,
+                      showMultimedia: true,
+                      bodyMaxLines: 5,
+                      bodyTextOverflow: TextOverflow.ellipsis,
+                      titleStyle: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                      bodyStyle: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  );
+
+                  return Column(
+                    children: [
+                      text,
+                      linkBubble,
+                    ],
+                  );
+                }
+
+                return text;
               }),
         ),
         TextField(
