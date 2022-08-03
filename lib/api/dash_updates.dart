@@ -45,7 +45,7 @@ class DashUpdates {
       "content":
           "I would give anything to know how elevators influence my dog's understanding of the world",
       "authorImage":
-          "https://pbs.twimg.com/profile_images/1290813376377974784/bdzo7QcN_400x400.jpg",
+          "https://pbs.twimg.com/profile_images/1553024388806496256/y1iLsuKN_400x400.jpg",
       "comments": [
         {
           "author": "Craig's Dog",
