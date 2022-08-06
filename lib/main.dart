@@ -7,11 +7,14 @@ import 'ui/shop/shop.dart';
 import 'ui/chat/chat.dart';
 import '../../api/bag.dart';
 import 'api/chat_manager.dart';
+import 'ui/game/game.dart';
+import 'api/game_manager.dart';
 
 GetIt getIt = GetIt.instance;
 void main() {
   getIt.registerSingleton<Bag>(Bag());
   getIt.registerSingleton<ChatManager>(ChatManager());
+  getIt.registerSingleton<GameManager>(GameManager());
   runApp(const MyApp());
 }
 
@@ -59,6 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
           _pageTitle = "DashBot";
           _currentWidget = const Chat();
         });
+      case 3:
+        return setState(() {
+          _pageTitle = "FlappyDash";
+          _currentWidget = Game();
+        });
     }
   }
 
@@ -95,12 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: "Chat",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.auto_graph_outlined),
-            label: "Insights",
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.flutter_dash),
-            label: "Detector",
+            label: "FlappyDash",
           ),
         ],
       ),
