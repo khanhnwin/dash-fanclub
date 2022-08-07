@@ -33,7 +33,6 @@ class FlappyDash extends FlameGame
   StartGameButton startButton = StartGameButton();
   PauseGameButton pauseButton = PauseGameButton();
   late RestartGameButton restartButton;
-  bool newGame = true;
   late GameOver gameOver;
 
   @override
@@ -118,6 +117,7 @@ class FlappyDash extends FlameGame
   void activateGameOver() {
     pauseButton.removeFromParent();
 
+    getIt<GameManager>().setGameOver(true);
     //gameOver = GameOver();
     //add(gameOver);
     overlays.add('GameOver');
@@ -129,11 +129,14 @@ class FlappyDash extends FlameGame
   }
 
   void resetGame() {
-    if (newGame == true) {
+    print('reset game');
+
+    if (getIt<GameManager>().gameOver == false) {
       return;
     }
 
     getIt<GameManager>().resetScore();
+    getIt<GameManager>().setGameOver(false);
     dash.position = Vector2(_world.size.x / 8, _world.size.y / 3);
 
     overlays.remove('GameOver');
@@ -147,9 +150,7 @@ class FlappyDash extends FlameGame
 
     enemyManager.start();
 
-    newGame = true;
-
-    resumeEngine();
+    //resumeEngine();
   }
 
   @override
@@ -263,8 +264,6 @@ class StartGameButton extends SpriteComponent
     gameRef.resumeEngine();
 
     gameRef.addPauseButton();
-
-    gameRef.newGame = false;
 
     removeFromParent();
 

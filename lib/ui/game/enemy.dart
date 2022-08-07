@@ -20,7 +20,9 @@ class Enemy extends SpriteComponent with HasGameRef, CollisionCallbacks {
     if (position.x < -50) {
       removeFromParent();
 
-      getIt<GameManager>().increaseScore();
+      if (getIt<GameManager>().gameOver == false) {
+        getIt<GameManager>().increaseScore();
+      }
     }
   }
 
