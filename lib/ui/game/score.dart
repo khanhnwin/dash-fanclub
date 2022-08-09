@@ -17,6 +17,7 @@ class ScoreDisplay extends TextComponent with HasGameRef {
               fontSize: 24.0,
               package: 'GoogleFonts',
               fontFamily: 'Lobster',
+              color: Color.fromARGB(255, 1, 74, 111),
             ),
           ),
         );

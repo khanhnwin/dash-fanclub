@@ -7,7 +7,7 @@ class World extends ParallaxComponent<FlappyDash> {
   Future<void> onLoad() async {
     parallax = await gameRef.loadParallax(
       [
-        ParallaxImageData('/game/bg.png'),
+        ParallaxImageData('game/bg5.png'),
       ],
       baseVelocity: Vector2(150, 0),
       velocityMultiplierDelta: Vector2(1.8, 1.0),

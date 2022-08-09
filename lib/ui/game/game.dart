@@ -154,7 +154,7 @@ class FlappyDash extends FlameGame
   }
 
   @override
-  Color backgroundColor() => const Color(0xff1CDAC5);
+  Color backgroundColor() => Color.fromARGB(255, 158, 230, 244);
 }
 
 /*main() {

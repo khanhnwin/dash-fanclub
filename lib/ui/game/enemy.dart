@@ -36,7 +36,7 @@ class Enemy extends SpriteComponent with HasGameRef, CollisionCallbacks {
   @override
   Future<void>? onLoad() async {
     super.onLoad();
-    sprite = await gameRef.loadSprite('/game/crate.png');
+    sprite = await gameRef.loadSprite('game/luggage.png');
     //position = Vector2(gameRef.size.x - 70, gameRef.size.y - 70);
     add(RectangleHitbox());
   }

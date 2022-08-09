@@ -15,7 +15,7 @@ class NoDashUpdates extends StatelessWidget {
         ),
         Padding(
             padding: EdgeInsets.all(0),
-            child: Image(image: AssetImage('assets/images/dash.png'))),
+            child: Image(image: AssetImage('assets/images/dash_image.png'))),
       ],
     );
   }

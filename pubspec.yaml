@@ -30,7 +30,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/dash.png
+    - assets/images/
     - assets/images/shop/
     - assets/images/game/
 
